@@ -1,18 +1,17 @@
-import { db } from 'db';
 import { quizzes } from 'db/schema';
 import { NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
+
 import { QuizService } from '@components/app/services/quizService';
 
 export async function GET(request: Request, { params }: { params: { quizId: string } }) {
   const quizId = params.quizId;
 
   const selectedQuiz = await QuizService.getQuiz(quizId);
-  console.log('route quiz');
+
   return new NextResponse(JSON.stringify(selectedQuiz));
 }
 
-export async function DELETE({ params }: { params: { quizId: string } }) {
+export async function DELETE(request: Request, { params }: { params: { quizId: string } }) {
   try {
     const quizId = params.quizId;
 
