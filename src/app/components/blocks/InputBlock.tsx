@@ -3,29 +3,31 @@ import { Flex } from '@chakra-ui/react';
 import { FormInput } from '../FormInput';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 
+import './InputBlock.css';
+
 interface InputBlockProps {
   label: string;
-  fieldName: string;
+  fieldRef: string;
 }
 
-export const InputBlock = ({ label, fieldName, ...defaultAttrs }: InputBlockProps) => {
+export const InputBlock = ({ label, fieldRef, ...defaultAttrs }: InputBlockProps) => {
   const stepEditorContext = useStepEditorContext();
+
+  console.log('context', stepEditorContext?.formData);
   return (
     <Flex alignItems="center" gap="2" p={2}>
       {label && <label className="form-label">{label}</label>}
 
       <FormInput
         {...defaultAttrs}
-        value={stepEditorContext?.formData?.[fieldName] ?? ''}
+        value={stepEditorContext?.formData?.[fieldRef] ?? ''}
         onChange={(e) =>
           stepEditorContext?.setFormData({
             ...stepEditorContext?.formData,
-            [fieldName]: e.target.value,
+            [fieldRef]: e.target.value,
           })
         }
       />
-
-      {stepEditorContext?.formData?.[fieldName] && stepEditorContext?.formData[fieldName]}
     </Flex>
   );
 };

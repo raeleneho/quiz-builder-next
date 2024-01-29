@@ -4,7 +4,7 @@ import { Flex, Button, FormLabel } from '@chakra-ui/react';
 import StepClient, { Step, stepRoute } from '../../api/StepClient';
 
 import { FormInput } from './FormInput';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface StepSettingsProps {
   step?: Step | null;

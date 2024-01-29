@@ -1,4 +1,4 @@
-import DataPreview from '@components/app/components/DataPreview';
+import DataPreview from '@components/app/components/ResponsePreview';
 import StepEditor from '@components/app/components/StepEditor/StepEditor';
 import StepSettings from '@components/app/components/StepSettings';
 import Tabs, { TabWithTitleProps } from '@components/app/components/Tabs/Tabs';

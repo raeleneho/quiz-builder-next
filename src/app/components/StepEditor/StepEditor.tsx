@@ -12,11 +12,12 @@ import { Box, Text, Flex, forwardRef } from '@chakra-ui/react';
 
 import NewBlockPopoverModal from '../../components/NewBlockPopoverModal';
 import { queryClient } from '@components/lib/QueryClient';
-import DataPreview from '../DataPreview';
+
 import StepSettings from '../StepSettings';
 import { BlockSettings } from '../blocks/BlockSettings';
 import Tabs, { TabWithTitleProps } from '../Tabs/Tabs';
 import { TabsProvider } from '../Tabs/TabsContext';
+import ResponsePreview from '../ResponsePreview';
 
 function StepEditor() {
   const {
@@ -62,7 +63,7 @@ function StepEditor() {
       title: 'Block Settings',
       component: () => <BlockSettings stepId={stepId} />,
     },
-    { id: '3', title: 'Data Preview', component: () => <DataPreview /> },
+    { id: '3', title: 'Response Preview', component: () => <ResponsePreview /> },
   ];
 
   if (!step) {

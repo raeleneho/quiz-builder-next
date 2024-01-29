@@ -6,12 +6,13 @@ import StepClient, { stepRoute } from './StepClient';
 export enum BlockType {
   TEXTAREA = 'textarea',
   INPUT = 'input',
+  TYPOGRAPHY = 'typography',
 }
 
 export interface Block {
   id: string;
   type: BlockType;
-  data: Record<string, any>;
+  data: Record<string, any> | string;
 }
 
 export const blockRoute = 'blocks';
@@ -22,7 +23,7 @@ export interface CreateBlockRequest {
   stepId: string;
   type: BlockType;
   position?: number;
-  data: Record<string, string>;
+  data: Record<string, string> | string;
 }
 
 export const createBlock = async (request: CreateBlockRequest) => {

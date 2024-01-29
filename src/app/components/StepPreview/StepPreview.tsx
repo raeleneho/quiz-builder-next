@@ -37,7 +37,6 @@ interface StepPreviewProps {
 function StepPreview({ step, quizId }: StepPreviewProps) {
   const stepEditorContext = useStepEditorContext();
   const tabContext = useTabsContext();
-  console.log('tab', tabContext?.selectedTab);
 
   const blocksRes = useQueries({
     queries:
@@ -51,6 +50,10 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
       }) ?? [],
   });
 
+  // if (blocksRes && blocksRes.length === 1) {
+
+  //   return stepEditorContext?.setSelectedBlockId(blocksRes[0].data?.id);
+  // }
   return (
     <>
       <VStack py={4}>
@@ -62,7 +65,6 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
               key={block?.id}
               w="100%"
               p={1}
-              color="white"
               className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
               onClick={() => {
                 stepEditorContext?.setSelectedBlockId(block?.id ?? '');

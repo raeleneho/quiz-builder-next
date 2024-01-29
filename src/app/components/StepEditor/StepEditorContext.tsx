@@ -6,7 +6,7 @@ import { Block, blockRoute, BlockClient } from '../../../api/BlockClient';
 
 interface StepEditorContextData {
   selectedBlock?: Block | null;
-  setSelectedBlock: (block: Block) => void;
+  setSelectedBlock: (block: Block | null) => void;
   selectedBlockId: string;
   setSelectedBlockId: (blockId: string) => void;
   formData?: Record<string, any> | null;

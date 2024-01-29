@@ -1,11 +1,13 @@
 // dynamic props - block id, block type, block data
 // make getblock request
-import { Box, Button, Flex, FormLabel } from '@chakra-ui/react';
+import { Box, Button, Flex, FormLabel, Spacer } from '@chakra-ui/react';
 
-import { BlockClient } from '../../../api/BlockClient';
+import { BlockClient, BlockType } from '../../../api/BlockClient';
 
 import { FormInput } from '../FormInput';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
+import CustomEditor from '../CustomEditor';
+import { useState } from 'react';
 
 interface BlockEditorProps {
   stepId: string;
@@ -14,37 +16,62 @@ interface BlockEditorProps {
 export function BlockSettings({ stepId }: BlockEditorProps) {
   const stepEditorContext = useStepEditorContext();
   const block = stepEditorContext?.selectedBlock;
+
+  const handleCustomEditorData = (data: string) => {
+    stepEditorContext?.selectedBlock &&
+      stepEditorContext?.setSelectedBlock({
+        ...stepEditorContext?.selectedBlock,
+        data: {
+          ...stepEditorContext?.selectedBlock?.data,
+          textValue: data,
+        },
+      });
+  };
+
   if (!block) return <>Select a block</>;
+
+  const blockSettingsRenderer = () => {
+    if (block.type === BlockType.TYPOGRAPHY) {
+      return <CustomEditor initialData={block.data.textValue} onCustomEditorChange={handleCustomEditorData} />;
+    } else {
+      return (
+        <>
+          {Object.keys(stepEditorContext?.selectedBlock?.data ?? {}).map((key) => {
+            return (
+              <Flex key={key} justify="space-between" gap="1">
+                <FormLabel fontSize="sm" mb={0}>
+                  {key}:
+                </FormLabel>
+
+                <FormInput
+                  width="auto"
+                  size="sm"
+                  variant="outline"
+                  boxShadow="sm"
+                  rounded="md"
+                  value={stepEditorContext?.selectedBlock?.data[key]}
+                  onChange={(e) => {
+                    stepEditorContext?.selectedBlock &&
+                      stepEditorContext?.setSelectedBlock({
+                        ...stepEditorContext?.selectedBlock,
+                        data: {
+                          ...stepEditorContext?.selectedBlock?.data,
+                          [key]: e.target.value,
+                        },
+                      });
+                  }}
+                />
+              </Flex>
+            );
+          })}
+        </>
+      );
+    }
+  };
   return (
     <>
       <Box maxW="350px" display="flex" flexDirection="column" gap={2}>
-        {Object.keys(stepEditorContext?.selectedBlock?.data ?? {}).map((key) => {
-          return (
-            <Flex key={key} alignItems="center" justify="space-between" gap="2">
-              <FormLabel fontSize="sm" mb={0}>
-                {key}:
-              </FormLabel>
-              <FormInput
-                width="auto"
-                size="sm"
-                variant="outline"
-                boxShadow="sm"
-                rounded="md"
-                value={stepEditorContext?.selectedBlock?.data[key]}
-                onChange={(e) => {
-                  stepEditorContext?.selectedBlock &&
-                    stepEditorContext?.setSelectedBlock({
-                      ...stepEditorContext?.selectedBlock,
-                      data: {
-                        ...stepEditorContext?.selectedBlock?.data,
-                        [key]: e.target.value,
-                      },
-                    });
-                }}
-              />
-            </Flex>
-          );
-        })}
+        {blockSettingsRenderer()}
 
         <Button
           aria-label="update block"
@@ -66,7 +93,10 @@ export function BlockSettings({ stepId }: BlockEditorProps) {
           variant="outline"
           fontSize="16px"
           size="sm"
-          onClick={() => BlockClient.deleteBlock({ stepId, blockId: block?.id })}
+          onClick={() => {
+            BlockClient.deleteBlock({ stepId, blockId: block?.id });
+            stepEditorContext?.setSelectedBlock(null);
+          }}
         >
           Delete block
         </Button>
