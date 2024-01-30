@@ -5,19 +5,37 @@ import StepClient, { Step, stepRoute } from '../../api/StepClient';
 
 import { FormInput } from './FormInput';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface StepSettingsProps {
-  step?: Step | null;
+  stepId: string;
   quizId: string;
 }
 
-function StepSettings({ step, quizId }: StepSettingsProps) {
-  const [stepName, setStepName] = useState(step?.name || '');
+function StepSettings({ stepId, quizId }: StepSettingsProps) {
+  // const [step, setStep] = useState<Step | null>();
+
+  const { data: stepRes } = useQuery({
+    queryKey: [stepRoute, stepId],
+    queryFn: async () => {
+      try {
+        const step = await StepClient.getStep({ stepId, quizId });
+
+        return step;
+      } catch (error) {
+        console.error('Error fetching step:', error);
+        throw error;
+      }
+    },
+    enabled: !!stepId,
+  });
+
+  const [stepName, setStepName] = useState(stepRes?.name || '');
 
   const saveStep = async () => {
-    if (step) {
+    if (stepRes) {
       await StepClient.updateStep({
-        ...step,
+        ...stepRes,
         name: stepName,
         quizId,
       });

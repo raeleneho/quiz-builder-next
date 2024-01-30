@@ -36,9 +36,8 @@ export async function DELETE(request: Request, { params }: { params: { stepId: s
 
 export async function PUT(request: Request, { params }: { params: { stepId: string } }) {
   try {
-    console.log('hi');
     const stepData = await request.json();
-    console.log(stepData);
+
     const result = StepService.updateStep(stepData, params.stepId);
 
     return new NextResponse(JSON.stringify(result), {

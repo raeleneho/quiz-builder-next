@@ -11,7 +11,6 @@ import { StepEditorProvider } from './StepEditorContext';
 import { Box, Text, Flex, forwardRef } from '@chakra-ui/react';
 
 import NewBlockPopoverModal from '../../components/NewBlockPopoverModal';
-import { queryClient } from '@components/lib/QueryClient';
 
 import StepSettings from '../StepSettings';
 import { BlockSettings } from '../blocks/BlockSettings';
@@ -28,35 +27,11 @@ function StepEditor() {
     stepId: string;
   } = useParams();
 
-  const [step, setStep] = useState<Step | null>();
-
-  const { data: stepRes } = useQuery({
-    queryKey: [stepRoute, stepId],
-    queryFn: async () => {
-      try {
-        const step = await StepClient.getStep({ stepId, quizId });
-
-        return step;
-      } catch (error) {
-        console.error('Error fetching step:', error);
-        throw error;
-      }
-    },
-    enabled: !!stepId,
-  });
-
-  useEffect(() => {
-    console.log(stepRes);
-    if (stepRes) {
-      setStep({ ...stepRes });
-    }
-  }, [stepRes]);
-
   const tabsData: TabWithTitleProps[] = [
     {
       id: '1',
       title: 'Step Settings',
-      component: () => <StepSettings step={step} quizId={quizId} />,
+      component: () => <StepSettings stepId={stepId} quizId={quizId} />,
     },
     {
       id: '2',
@@ -66,9 +41,9 @@ function StepEditor() {
     { id: '3', title: 'Response Preview', component: () => <ResponsePreview /> },
   ];
 
-  if (!step) {
-    return <></>;
-  }
+  // if (!step) {
+  //   return <></>;
+  // }
 
   return (
     <>
@@ -84,7 +59,7 @@ function StepEditor() {
             </Text>
             <Text color="white"> Form mason lets you build multi-step, flexible and custom forms.</Text>
             <Text color="white">Here are some example blocks that you might want to use: </Text>
-            <StepPreview step={step} quizId={quizId ?? ''} />
+            <StepPreview stepId={stepId} quizId={quizId ?? ''} />
           </Box>
 
           <div className="sidebar right-sidebar">

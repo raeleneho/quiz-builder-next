@@ -65,31 +65,9 @@ a {
   text-decoration: none;
 }
 
-/* a:hover {
-  color: #4fb9af;
-  text-decoration: underline;
-  background: none !important;
-  border-color: none !important;
-} */
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
-
-/* .sidebar {
-  height: 100vh;
-  background: white;
-  top: 0;
-  min-width: 30%;
-  display: flex;
-  flex-direction: column;
-  color: black;
-  padding: 1.6em;
-  gap: 1em;
-}
-
-.left-sidebar {
-  left: 0;
-} */

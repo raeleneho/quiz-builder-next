@@ -1,6 +1,6 @@
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { Block, BlockClient, blockRoute } from '../../../api/BlockClient';
-import { Step } from '../../../api/StepClient';
+import StepClient, { Step, stepRoute } from '../../../api/StepClient';
 
 import './StepPreview.css';
 import { blockLibrary } from '../blocks/BlockLibrary';
@@ -10,6 +10,7 @@ import { AbsoluteCenter, Box, Container, VStack } from '@chakra-ui/react';
 import NewBlockPopoverModal from '../NewBlockPopoverModal';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 import { useTabsContext } from '../Tabs/TabsContext';
+import { useState, useEffect } from 'react';
 
 interface BlockRendererProps {
   block?: Block | null;
@@ -30,17 +31,41 @@ export const BlockRenderer = ({ block, isSelected }: BlockRendererProps): JSX.El
 };
 
 interface StepPreviewProps {
-  step: Step;
+  stepId: string;
   quizId: string;
 }
 
-function StepPreview({ step, quizId }: StepPreviewProps) {
+function StepPreview({ stepId, quizId }: StepPreviewProps) {
   const stepEditorContext = useStepEditorContext();
   const tabContext = useTabsContext();
 
+  const [step, setStep] = useState<Step | null>();
+
+  const { data: stepRes } = useQuery({
+    queryKey: [stepRoute, stepId],
+    queryFn: async () => {
+      try {
+        const step = await StepClient.getStep({ stepId, quizId });
+
+        return step;
+      } catch (error) {
+        console.error('Error fetching step:', error);
+        throw error;
+      }
+    },
+    enabled: !!stepId,
+  });
+
+  useEffect(() => {
+    console.log(stepRes);
+    if (stepRes) {
+      setStep({ ...stepRes });
+    }
+  }, [stepRes]);
+
   const blocksRes = useQueries({
     queries:
-      step.blocks?.map((blockId: string) => {
+      step?.blocks?.map((blockId: string) => {
         return {
           queryKey: [blockRoute, blockId],
           queryFn: async () => {
@@ -67,8 +92,11 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
               p={1}
               className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
               onClick={() => {
-                stepEditorContext?.setSelectedBlockId(block?.id ?? '');
-                tabContext?.setSelectedTab('2');
+                if (!isSelected) {
+                  stepEditorContext?.setSelectedBlockId(block?.id ?? '');
+
+                  tabContext?.setSelectedTab('2');
+                }
               }}
             >
               <Container centerContent>

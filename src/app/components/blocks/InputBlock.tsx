@@ -13,7 +13,6 @@ interface InputBlockProps {
 export const InputBlock = ({ label, fieldRef, ...defaultAttrs }: InputBlockProps) => {
   const stepEditorContext = useStepEditorContext();
 
-  console.log('context', stepEditorContext?.formData);
   return (
     <Flex alignItems="center" gap="2" p={2}>
       {label && <label className="form-label">{label}</label>}

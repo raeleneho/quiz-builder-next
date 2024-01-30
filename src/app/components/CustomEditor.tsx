@@ -20,7 +20,6 @@ function CustomEditor({ initialData, onCustomEditorChange }: CustomEditorProps) 
         onChange={(event, editor) => {
           const data = editor.getData();
           onCustomEditorChange(data);
-          console.log('change.', data);
         }}
       />
     </>
