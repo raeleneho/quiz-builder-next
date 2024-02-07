@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 
 import { FormInput } from '../FormInput';
-import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 
 import './InputBlock.css';
+import { useResponseContext } from '../ResponseContext';
 
 interface InputBlockProps {
   label: string;
@@ -11,7 +11,7 @@ interface InputBlockProps {
 }
 
 export const InputBlock = ({ label, fieldRef, ...defaultAttrs }: InputBlockProps) => {
-  const stepEditorContext = useStepEditorContext();
+  const responseContext = useResponseContext();
 
   return (
     <Flex alignItems="center" gap="2" p={2}>
@@ -19,10 +19,10 @@ export const InputBlock = ({ label, fieldRef, ...defaultAttrs }: InputBlockProps
 
       <FormInput
         {...defaultAttrs}
-        value={stepEditorContext?.formData?.[fieldRef] ?? ''}
+        value={responseContext?.response?.[fieldRef] ?? ''}
         onChange={(e) =>
-          stepEditorContext?.setFormData({
-            ...stepEditorContext?.formData,
+          responseContext?.setResponse({
+            ...responseContext?.setResponse,
             [fieldRef]: e.target.value,
           })
         }

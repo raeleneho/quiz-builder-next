@@ -1,7 +1,7 @@
 import { Flex, Spacer, Textarea } from '@chakra-ui/react';
-import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 
 import './TextareaBlock.css';
+import { useResponseContext } from '../ResponseContext';
 
 interface TextareaBlockProps {
   label: string;
@@ -11,7 +11,7 @@ interface TextareaBlockProps {
 }
 
 export const TextareaBlock = ({ label, fieldRef, placeholder }: TextareaBlockProps): JSX.Element => {
-  const stepEditorContext = useStepEditorContext();
+  const responseContext = useResponseContext();
   return (
     <Flex alignItems="center" justify="space-between" p={2}>
       {label ? <label>{label}</label> : <Spacer />}
@@ -19,10 +19,10 @@ export const TextareaBlock = ({ label, fieldRef, placeholder }: TextareaBlockPro
       <Textarea
         variant="filled"
         className="textarea-block"
-        value={stepEditorContext?.formData?.[fieldRef] ?? ''}
+        value={responseContext?.response?.[fieldRef] ?? ''}
         onChange={(e) =>
-          stepEditorContext?.setFormData({
-            ...stepEditorContext?.formData,
+          responseContext?.setResponse({
+            ...responseContext?.setResponse,
             [fieldRef]: e.target.value,
           })
         }

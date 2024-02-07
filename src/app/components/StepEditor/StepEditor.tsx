@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import StepPreview from '../../components/StepPreview/StepPreview';
 import { StepEditorProvider } from './StepEditorContext';
 
-import { Box, Text, Flex, forwardRef } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 
 import NewBlockPopoverModal from '../../components/NewBlockPopoverModal';
 
@@ -17,6 +17,7 @@ import { BlockSettings } from '../blocks/BlockSettings';
 import Tabs, { TabWithTitleProps } from '../Tabs/Tabs';
 import { TabsProvider } from '../Tabs/TabsContext';
 import ResponsePreview from '../ResponsePreview';
+import { LocalResponseProvider } from '../ResponseContext';
 
 function StepEditor() {
   const {
@@ -47,26 +48,28 @@ function StepEditor() {
 
   return (
     <>
-      <StepEditorProvider stepId={stepId}>
-        <TabsProvider>
-          <Box w="100%" p={6}>
-            <Flex>
-              <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="New Block" />
-            </Flex>
-            <Text as="b" color="white" fontSize="3xl">
-              {' '}
-              Welcome to Form Mason
-            </Text>
-            <Text color="white"> Form mason lets you build multi-step, flexible and custom forms.</Text>
-            <Text color="white">Here are some example blocks that you might want to use: </Text>
-            <StepPreview stepId={stepId} quizId={quizId ?? ''} />
-          </Box>
+      <LocalResponseProvider>
+        <StepEditorProvider stepId={stepId}>
+          <TabsProvider>
+            <Box w="100%" p={6}>
+              <Flex>
+                <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="New Block" />
+              </Flex>
+              <Text as="b" color="white" fontSize="3xl">
+                {' '}
+                Welcome to Form Mason
+              </Text>
+              <Text color="white"> Form mason lets you build multi-step, flexible and custom forms.</Text>
+              <Text color="white">Here are some example blocks that you might want to use: </Text>
+              <StepPreview editable stepId={stepId} quizId={quizId ?? ''} />
+            </Box>
 
-          <div className="sidebar right-sidebar">
-            <Tabs noTabsProvider tabsData={tabsData} />
-          </div>
-        </TabsProvider>
-      </StepEditorProvider>
+            <div className="sidebar right-sidebar">
+              <Tabs noTabsProvider tabsData={tabsData} />
+            </div>
+          </TabsProvider>
+        </StepEditorProvider>
+      </LocalResponseProvider>
     </>
   );
 }

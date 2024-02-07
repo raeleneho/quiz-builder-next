@@ -1,6 +1,7 @@
 'use client';
 import QuizPreview from '@components/app/components/QuizPreview';
 import QuizSettings from '@components/app/components/QuizSettings';
+
 import Tabs, { TabWithTitleProps } from '@components/app/components/Tabs/Tabs';
 
 export default function Page({ params }: { params: { quizId: string } }) {

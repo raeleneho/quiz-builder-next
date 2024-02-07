@@ -1,6 +1,6 @@
 'use client';
 
-import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQueries, useQuery } from '@tanstack/react-query';
 
 import { Button, Flex, IconButton, Spacer, TabsProvider, VStack } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
@@ -16,6 +16,7 @@ import { useParams } from 'next/navigation';
 function SideBar() {
   const { quizId } = useParams();
   const [selectedQuizId, setSelectedQuizId] = useState((quizId as string) ?? '');
+
   const results = useQueries({
     queries: [
       {
@@ -40,11 +41,19 @@ function SideBar() {
 
   const [{ data: quizzes }, { data: selectedQuiz }] = results;
 
-  const generateQuiz = () => {
-    const newQuiz = { name: 'new quiz' };
+  const {
+    data: newQuiz,
+    mutate: generateQuiz,
+    isPending: creatingQuiz,
+    error,
+    isError,
+  } = useMutation({
+    mutationFn: () => {
+      const newQuiz = { name: 'new quiz' };
 
-    QuizClient.createQuiz(newQuiz);
-  };
+      return QuizClient.createQuiz(newQuiz);
+    },
+  });
 
   const generateStep = () => {
     if (!selectedQuizId) {
@@ -59,9 +68,11 @@ function SideBar() {
       title: 'Quizzes',
       component: () => (
         <VStack spacing={3} align="stretch">
-          <Button size="sm" variant="outline" borderColor={'teal.500'} onClick={() => generateQuiz()}>
+          <Button size="sm" variant="outline" borderColor={'teal.500'} onClick={() => generateQuiz()} disabled={creatingQuiz}>
             + Add a quiz
           </Button>
+
+          {creatingQuiz ? <div>HAHAHAHAHA</div> : <></>}
 
           {quizzes?.map?.((quiz) => (
             <QuizSideBarItem key={quiz.id} quiz={quiz} setSelectedQuizId={setSelectedQuizId} />

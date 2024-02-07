@@ -1,10 +1,10 @@
 import { Box, Flex, IconButton, Text, useTabsContext } from '@chakra-ui/react';
 import { useStepEditorContext } from './StepEditor/StepEditorContext';
 import { DeleteIcon } from '@chakra-ui/icons';
+import { useResponseContext } from './ResponseContext';
 
 function ResponsePreview() {
-  const stepEditorContext = useStepEditorContext();
-
+  const responseContext = useResponseContext();
   return (
     <Box pos="relative" borderWidth="1px" borderRadius="md" p="4" bgColor="gray.100">
       <IconButton
@@ -16,13 +16,13 @@ function ResponsePreview() {
         fontSize="12px"
         size="xs"
         icon={<DeleteIcon />}
-        onClick={() => stepEditorContext?.setFormData({})}
+        onClick={() => responseContext?.setResponse({})}
       />
       <Flex>
         <Text color="gray.500">{'{'}</Text>
       </Flex>
 
-      {Object.entries(stepEditorContext?.formData ?? {}).map(([key, value]) => {
+      {Object.entries(responseContext?.response ?? {}).map(([key, value]) => {
         return (
           <Box key={key} pl={3}>
             <Flex justifyContent="flex-start">

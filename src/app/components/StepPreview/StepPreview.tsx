@@ -14,10 +14,9 @@ import { useState, useEffect } from 'react';
 
 interface BlockRendererProps {
   block?: Block | null;
-  isSelected?: boolean;
 }
 
-export const BlockRenderer = ({ block, isSelected }: BlockRendererProps): JSX.Element => {
+export const BlockRenderer = ({ block }: BlockRendererProps): JSX.Element => {
   if (!block) {
     return <></>;
   }
@@ -33,9 +32,10 @@ export const BlockRenderer = ({ block, isSelected }: BlockRendererProps): JSX.El
 interface StepPreviewProps {
   stepId: string;
   quizId: string;
+  editable?: boolean;
 }
 
-function StepPreview({ stepId, quizId }: StepPreviewProps) {
+function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
   const stepEditorContext = useStepEditorContext();
   const tabContext = useTabsContext();
 
@@ -75,40 +75,52 @@ function StepPreview({ stepId, quizId }: StepPreviewProps) {
       }) ?? [],
   });
 
-  // if (blocksRes && blocksRes.length === 1) {
-
-  //   return stepEditorContext?.setSelectedBlockId(blocksRes[0].data?.id);
-  // }
   return (
     <>
-      <VStack py={4}>
-        {blocksRes?.map(({ data: block }) => {
-          const isSelected = stepEditorContext?.selectedBlockId === block?.id;
+      {editable ? (
+        <VStack py={4}>
+          {blocksRes?.map(({ data: block }) => {
+            const isSelected = stepEditorContext?.selectedBlockId === block?.id;
 
-          return (
-            <Box
-              key={block?.id}
-              w="100%"
-              p={1}
-              className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
-              onClick={() => {
-                if (!isSelected) {
-                  stepEditorContext?.setSelectedBlockId(block?.id ?? '');
+            return (
+              <Box
+                key={block?.id}
+                w="100%"
+                p={1}
+                className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
+                onClick={() => {
+                  if (!isSelected) {
+                    stepEditorContext?.setSelectedBlockId(block?.id ?? '');
 
-                  tabContext?.setSelectedTab('2');
-                }
-              }}
-            >
-              <Container centerContent>
-                <Box w="60%">
-                  <BlockRenderer block={isSelected ? stepEditorContext?.selectedBlock : block} isSelected={isSelected} />
-                </Box>
-              </Container>
-              <NewBlockPopoverModal triggerIcon stepId={step.id} quizId={quizId} />
-            </Box>
-          );
-        })}
-      </VStack>
+                    tabContext?.setSelectedTab('2');
+                  }
+                }}
+              >
+                <Container centerContent>
+                  <Box w="60%">
+                    <BlockRenderer block={isSelected ? stepEditorContext?.selectedBlock : block} />
+                  </Box>
+                </Container>
+                <NewBlockPopoverModal triggerIcon stepId={step?.id} quizId={quizId} />
+              </Box>
+            );
+          })}
+        </VStack>
+      ) : (
+        <VStack py={4}>
+          {blocksRes?.map(({ data: block }) => {
+            return (
+              <Box key={block?.id} w="100%" p={1}>
+                <Container centerContent>
+                  <Box w="60%">
+                    <BlockRenderer block={block} />
+                  </Box>
+                </Container>
+              </Box>
+            );
+          })}
+        </VStack>
+      )}
     </>
   );
 }

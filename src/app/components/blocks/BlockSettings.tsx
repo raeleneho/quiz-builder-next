@@ -7,7 +7,6 @@ import { BlockClient, BlockType } from '../../../api/BlockClient';
 import { FormInput } from '../FormInput';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 import CustomEditor from '../CustomEditor';
-import { useState } from 'react';
 
 interface BlockEditorProps {
   stepId: string;
@@ -16,6 +15,7 @@ interface BlockEditorProps {
 export function BlockSettings({ stepId }: BlockEditorProps) {
   const stepEditorContext = useStepEditorContext();
   const block = stepEditorContext?.selectedBlock;
+  console.log('step con block', stepEditorContext);
 
   const handleCustomEditorData = (data: string) => {
     stepEditorContext?.selectedBlock &&
