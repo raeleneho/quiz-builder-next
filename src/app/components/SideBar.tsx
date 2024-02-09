@@ -60,6 +60,7 @@ function SideBar() {
       return;
     }
     const newStep = { quizId: selectedQuizId, name: 'new step' };
+
     StepClient.createStep(newStep);
   };
   const tabsData = [
@@ -71,8 +72,6 @@ function SideBar() {
           <Button size="sm" variant="outline" borderColor={'teal.500'} onClick={() => generateQuiz()} disabled={creatingQuiz}>
             + Add a quiz
           </Button>
-
-          {creatingQuiz ? <div>HAHAHAHAHA</div> : <></>}
 
           {quizzes?.map?.((quiz) => (
             <QuizSideBarItem key={quiz.id} quiz={quiz} setSelectedQuizId={setSelectedQuizId} />

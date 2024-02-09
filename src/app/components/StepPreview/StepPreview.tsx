@@ -5,7 +5,7 @@ import StepClient, { Step, stepRoute } from '../../../api/StepClient';
 import './StepPreview.css';
 import { blockLibrary } from '../blocks/BlockLibrary';
 
-import { AbsoluteCenter, Box, Container, VStack } from '@chakra-ui/react';
+import { AbsoluteCenter, Box, Container, VStack, Text } from '@chakra-ui/react';
 
 import NewBlockPopoverModal from '../NewBlockPopoverModal';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
@@ -108,6 +108,9 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
         </VStack>
       ) : (
         <VStack py={4}>
+          {blocksRes?.length <= 0 && (
+            <Text color="white"> Good job for creating a new step! Now, click on that step on the left side bar to start adding blocks. </Text>
+          )}
           {blocksRes?.map(({ data: block }) => {
             return (
               <Box key={block?.id} w="100%" p={1}>
