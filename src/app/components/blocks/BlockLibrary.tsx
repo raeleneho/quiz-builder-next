@@ -1,12 +1,20 @@
+import { ReactNode } from 'react';
 import { BlockType } from '../../../api/BlockClient';
 import { InputBlock } from './InputBlock';
 import { TextareaBlock } from './TextareaBlock';
 import TypographyBlock from './TypographyBlock';
+import { Icon } from '@chakra-ui/react';
+
+import { BsTextareaT } from 'react-icons/bs';
+import { PiTextT } from 'react-icons/pi';
+import { LuFormInput } from 'react-icons/lu';
 
 export interface BlockDefinition {
   inserterOptions: {
     label: string;
   };
+
+  iconType: ReactNode | ReactNode[];
 
   block: React.FC<any>;
 
@@ -17,6 +25,8 @@ const InputBlockDefinition: BlockDefinition = {
   inserterOptions: {
     label: 'Input',
   },
+
+  iconType: <Icon as={LuFormInput} />,
 
   block: InputBlock,
 
@@ -31,6 +41,7 @@ const TextareaBlockDefinition: BlockDefinition = {
   inserterOptions: {
     label: 'Textarea',
   },
+  iconType: <Icon as={BsTextareaT} />,
 
   block: TextareaBlock,
 
@@ -42,8 +53,10 @@ const TextareaBlockDefinition: BlockDefinition = {
 
 const TypographyBlockDefinition: BlockDefinition = {
   inserterOptions: {
-    label: 'Typography',
+    label: 'Text',
   },
+
+  iconType: <Icon as={PiTextT} />,
 
   block: TypographyBlock,
 
