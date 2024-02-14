@@ -2,7 +2,6 @@ import { Flex } from '@chakra-ui/react';
 
 import { FormInput } from '../FormInput';
 
-import './InputBlock.css';
 import { useResponseContext } from '../ResponseContext';
 
 interface InputBlockProps {

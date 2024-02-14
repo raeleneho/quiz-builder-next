@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 import { BlockType } from '../../../api/BlockClient';
-import { InputBlock } from './InputBlock';
-import { TextareaBlock } from './TextareaBlock';
-import TypographyBlock from './TypographyBlock';
-import { Icon } from '@chakra-ui/react';
 
-import { BsTextareaT } from 'react-icons/bs';
-import { PiTextT } from 'react-icons/pi';
-import { LuFormInput } from 'react-icons/lu';
+import { InputBlockDefinition } from './InputBlockDefinition';
+import { DropdownBlockDefinition } from './DropdownBlockDefinition';
+import { MultiSelectBlockDefinition } from './MultiSelectBlockDefinition';
+import { RadioBlockDefinition } from './RadioBlock/RadioBlockDefinition';
+import { TextareaBlockDefinition } from './TextareaBlockDefinition';
+import { TypographyBlockDefinition } from './TypographyBlock/TypographyBlockDefinition';
 
 export interface BlockDefinition {
   inserterOptions: {
@@ -17,54 +16,20 @@ export interface BlockDefinition {
   iconType: ReactNode | ReactNode[];
 
   block: React.FC<any>;
+  blockSettings: React.FC<any>;
 
-  factory: () => Record<string, string>;
+  factory: () => Record<string, string | { label: string; value: string }[]>;
 }
 
-const InputBlockDefinition: BlockDefinition = {
-  inserterOptions: {
-    label: 'Input',
-  },
-
-  iconType: <Icon as={LuFormInput} />,
-
-  block: InputBlock,
-
-  factory: () => ({
-    fieldRef: 'Input',
-    label: 'label text',
-    placeholder: 'placeholder text',
-  }),
-};
-
-const TextareaBlockDefinition: BlockDefinition = {
-  inserterOptions: {
-    label: 'Textarea',
-  },
-  iconType: <Icon as={BsTextareaT} />,
-
-  block: TextareaBlock,
-
-  factory: () => ({
-    fieldRef: 'Textarea',
-    placeholder: 'placeholder text',
-  }),
-};
-
-const TypographyBlockDefinition: BlockDefinition = {
-  inserterOptions: {
-    label: 'Text',
-  },
-
-  iconType: <Icon as={PiTextT} />,
-
-  block: TypographyBlock,
-
-  factory: () => ({ textValue: 'intial text here' }),
-};
-
+export interface OptionDefinition {
+  label: string;
+  value: string;
+}
 export const blockLibrary: Record<BlockType, BlockDefinition> = {
   [BlockType.TEXTAREA]: TextareaBlockDefinition,
   [BlockType.INPUT]: InputBlockDefinition,
   [BlockType.TYPOGRAPHY]: TypographyBlockDefinition,
+  [BlockType.RADIO]: RadioBlockDefinition,
+  [BlockType.DROPDOWN]: DropdownBlockDefinition,
+  [BlockType.MULTISELECT]: MultiSelectBlockDefinition,
 };

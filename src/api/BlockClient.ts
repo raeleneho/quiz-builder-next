@@ -7,12 +7,15 @@ export enum BlockType {
   TEXTAREA = 'textarea',
   INPUT = 'input',
   TYPOGRAPHY = 'typography',
+  RADIO = 'radio',
+  DROPDOWN = 'dropdown',
+  MULTISELECT = 'multiselect',
 }
 
 export interface Block {
   id: string;
   type: BlockType;
-  data: Record<string, any> | string;
+  data: Record<string, any>;
 }
 
 export const blockRoute = 'blocks';
@@ -23,7 +26,7 @@ export interface CreateBlockRequest {
   stepId: string;
   type: BlockType;
   position?: number;
-  data: Record<string, string> | string;
+  data: Record<string, any>;
 }
 
 export const createBlock = async (request: CreateBlockRequest) => {

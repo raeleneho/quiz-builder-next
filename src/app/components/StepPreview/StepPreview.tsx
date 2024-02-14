@@ -97,7 +97,7 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
                 }}
               >
                 <Container centerContent>
-                  <Box w="60%">
+                  <Box>
                     <BlockRenderer block={isSelected ? stepEditorContext?.selectedBlock : block} />
                   </Box>
                 </Container>

@@ -1,5 +1,4 @@
 import { Box } from '@chakra-ui/react';
-import CustomEditor from '../CustomEditor';
 
 interface TypographyBlockProps {
   textValue: string;

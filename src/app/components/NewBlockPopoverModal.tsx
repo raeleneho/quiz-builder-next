@@ -81,7 +81,7 @@ function NewBlockPopoverModal({ title, quizId, stepId, triggerIcon, btnText }: N
         <PopoverHeader>{title ? title : 'Select block type:'}</PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody>
-          <BlockInserter stepId={stepId} quizId={quizId} />
+          <BlockInserter showIcon stepId={stepId} quizId={quizId} />
         </PopoverBody>
       </PopoverContent>
     </Popover>

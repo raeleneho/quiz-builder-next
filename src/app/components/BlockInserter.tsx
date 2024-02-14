@@ -27,10 +27,12 @@ export const BlockInserter = ({ stepId, quizId, showIcon }: BlockInserterProps) 
       {Object.keys(blockLibrary).map((block) => {
         return (
           <Flex py={1} key={block} alignItems="center">
-            <Flex alignItems="center" mr={2}>
-              {' '}
-              {blockLibrary[block as BlockType].iconType}
-            </Flex>
+            {showIcon && (
+              <Flex alignItems="center" mr={2}>
+                {' '}
+                {blockLibrary[block as BlockType].iconType}
+              </Flex>
+            )}
 
             <Button variant="link" aria-label={`select ${block} block`} onClick={() => addBlock(block as BlockType)}>
               {blockLibrary[block as BlockType].inserterOptions.label}
