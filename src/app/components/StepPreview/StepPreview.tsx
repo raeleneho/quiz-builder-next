@@ -57,7 +57,6 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
   });
 
   useEffect(() => {
-    console.log(stepRes);
     if (stepRes) {
       setStep({ ...stepRes });
     }

@@ -1,7 +1,8 @@
 import { Icon } from '@chakra-ui/react';
 import { GoSingleSelect } from 'react-icons/go';
 import { BlockDefinition } from './BlockLibrary';
-import { SelectBlock } from './SelectBlock';
+import { DropdownBlock } from './DropdownBlock';
+import SelectBlockSettings from './SelectBlockSettings';
 
 export const DropdownBlockDefinition: BlockDefinition = {
   inserterOptions: {
@@ -10,9 +11,9 @@ export const DropdownBlockDefinition: BlockDefinition = {
 
   iconType: <Icon as={GoSingleSelect} />,
 
-  block: SelectBlock,
+  block: DropdownBlock,
   blockSettings: () => {
-    return <div>Input</div>;
+    return <SelectBlockSettings />;
   },
 
   factory: () => ({

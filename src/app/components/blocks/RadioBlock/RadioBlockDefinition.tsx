@@ -2,7 +2,7 @@ import { Icon } from '@chakra-ui/react';
 import { MdOutlineRadioButtonChecked } from 'react-icons/md';
 import { BlockDefinition } from '../BlockLibrary';
 import { RadioBlock } from './RadioBlock';
-import RadioBlockSettings from './RadioBlockSettings';
+import SelectBlockSettings from '../SelectBlockSettings';
 
 export const RadioBlockDefinition: BlockDefinition = {
   inserterOptions: {
@@ -13,7 +13,7 @@ export const RadioBlockDefinition: BlockDefinition = {
 
   block: RadioBlock,
   blockSettings: () => {
-    return <RadioBlockSettings />;
+    return <SelectBlockSettings />;
   },
 
   factory: () => ({

@@ -34,7 +34,6 @@ function QuizSettings({ quizId }: QuizSettingsProps) {
   });
 
   useEffect(() => {
-    console.log(quizRes);
     if (quizRes) {
       setQuiz({ ...quizRes });
     }

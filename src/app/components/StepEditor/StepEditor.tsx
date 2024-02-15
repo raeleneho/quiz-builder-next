@@ -52,7 +52,7 @@ function StepEditor() {
         <StepEditorProvider stepId={stepId}>
           <TabsProvider>
             <Box w="100%" p={6}>
-              <Flex>
+              <Flex mb={2}>
                 <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="New Block" />
               </Flex>
               <Text as="b" color="white" fontSize="3xl">

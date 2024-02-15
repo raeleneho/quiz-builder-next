@@ -1,12 +1,11 @@
 import { DeleteIcon, SmallAddIcon } from '@chakra-ui/icons';
 import { FormLabel, Flex, IconButton, Button } from '@chakra-ui/react';
 import React from 'react';
-import { FormInput } from '../../FormInput';
-import { OptionDefinition } from '../BlockLibrary';
-import { useStepEditorContext } from '../../StepEditor/StepEditorContext';
-import InputBlockSetting from '../InputBlockSettings';
+import { FormInput } from '../FormInput';
+import { OptionDefinition } from './BlockLibrary';
+import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 
-function RadioBlockSettings() {
+function SelectBlockSettings() {
   const stepEditorContext = useStepEditorContext();
   const { selectedBlock, setSelectedBlock } = stepEditorContext || {};
 
@@ -125,4 +124,4 @@ function RadioBlockSettings() {
   );
 }
 
-export default RadioBlockSettings;
+export default SelectBlockSettings;

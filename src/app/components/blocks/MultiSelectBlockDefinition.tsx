@@ -1,19 +1,27 @@
 import { Icon } from '@chakra-ui/react';
-import { PiTextT } from 'react-icons/pi';
+import { IoCheckboxOutline } from 'react-icons/io5';
 import { BlockDefinition } from './BlockLibrary';
 import MultiSelectBlock from './MultiSelectBlock';
+import SelectBlockSettings from './SelectBlockSettings';
 
 export const MultiSelectBlockDefinition: BlockDefinition = {
   inserterOptions: {
     label: 'Checkbox',
   },
 
-  iconType: <Icon as={PiTextT} />,
+  iconType: <Icon as={IoCheckboxOutline} />,
 
   block: MultiSelectBlock,
   blockSettings: () => {
-    return <div>Input</div>;
+    return <SelectBlockSettings />;
   },
 
-  factory: () => ({ fieldRef: 'Checkbox', label: 'label text' }),
+  factory: () => ({
+    fieldRef: 'Checkbox',
+    label: 'label text',
+    options: [
+      { label: 'test one', value: 'value one' },
+      { label: 'option two', value: 'value two' },
+    ],
+  }),
 };

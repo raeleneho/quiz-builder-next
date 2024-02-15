@@ -1,32 +1,33 @@
-import { Flex, Spacer, Select, RadioGroup, Stack, Radio, useRadio, useRadioGroup } from '@chakra-ui/react';
+import { Flex, RadioGroup, Stack, Radio } from '@chakra-ui/react';
 
 import { useResponseContext } from '../../ResponseContext';
+import { OptionDefinition } from '../BlockLibrary';
 
 interface SelectBlockProps {
   label: string;
   field: string;
   fieldRef: string;
-  options: { label: string; value: string }[];
-  type?: 'radio' | 'dropdown';
+  options: OptionDefinition[];
 }
 
-export const RadioBlock = ({ label, fieldRef, options }: SelectBlockProps): JSX.Element => {
+export const RadioBlock = ({ label, fieldRef, options }: SelectBlockProps) => {
   const responseContext = useResponseContext();
 
   return (
-    <Flex alignItems="center" justifyContent="space-" p={2} className="radio-block">
+    <Flex alignItems="center" justifyContent="space-between" p={2} className="radio-block">
       {label && <label className="form-label">{label}</label>}
 
       <RadioGroup
+        defaultValue={options[0].value}
         onChange={(newVal: string) => {
           responseContext?.setResponse({
-            ...responseContext?.setResponse,
+            ...responseContext?.response,
             [fieldRef]: newVal,
           });
         }}
         value={responseContext?.response?.[fieldRef]}
       >
-        <Stack color="white" direction="row">
+        <Stack color="white" spacing={[1, 5]} direction="row">
           {options.map((option) => (
             <Radio key={option.value} value={option.value}>
               {option.label}
