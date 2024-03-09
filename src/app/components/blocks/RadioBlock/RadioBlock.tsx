@@ -14,7 +14,7 @@ export const RadioBlock = ({ label, fieldRef, options }: SelectBlockProps) => {
   const responseContext = useResponseContext();
 
   return (
-    <Flex alignItems="center" justifyContent="space-between" p={2} className="radio-block">
+    <Flex alignItems="center" justifyContent="space-between" p={2}>
       {label && <label className="form-label">{label}</label>}
 
       <RadioGroup

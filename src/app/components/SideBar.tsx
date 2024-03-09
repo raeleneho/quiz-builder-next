@@ -2,16 +2,16 @@
 
 import { keepPreviousData, useMutation, useQueries, useQuery } from '@tanstack/react-query';
 
-import { Button, Flex, IconButton, Spacer, TabsProvider, VStack } from '@chakra-ui/react';
+import { Button, Flex, IconButton, Spacer, VStack } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
-import QuizClient, { Quiz, quizRoute } from '@components/api/QuizClient';
-import Link from 'next/link';
-import StepClient, { stepRoute } from '@components/api/StepClient';
 
+import Link from 'next/link';
 import Tabs from './Tabs/Tabs';
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
+import QuizClient, { quizRoute, Quiz } from '@api/QuizClient';
+import StepClient, { stepRoute } from '@api/StepClient';
 
 function SideBar() {
   const { quizId } = useParams();

@@ -1,16 +1,16 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { Block, BlockClient, blockRoute } from '../../../api/BlockClient';
-import StepClient, { Step, stepRoute } from '../../../api/StepClient';
 
 import './StepPreview.css';
 import { blockLibrary } from '../blocks/BlockLibrary';
 
-import { AbsoluteCenter, Box, Container, VStack, Text } from '@chakra-ui/react';
+import { Box, Container, VStack, Text } from '@chakra-ui/react';
 
 import NewBlockPopoverModal from '../NewBlockPopoverModal';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 import { useTabsContext } from '../Tabs/TabsContext';
 import { useState, useEffect } from 'react';
+import { Block, BlockClient, blockRoute } from '@api/BlockClient';
+import StepClient, { Step, stepRoute } from '@api/StepClient';
 
 interface BlockRendererProps {
   block?: Block | null;

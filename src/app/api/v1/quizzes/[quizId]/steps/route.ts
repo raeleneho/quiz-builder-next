@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import { db } from 'db';
+
 import { quizzes, steps } from 'db/schema';
-import { eq } from 'drizzle-orm';
-import { QuizService } from '@components/app/services/quizService';
-import { StepService } from '@components/app/services/stepService';
+import { QuizService } from 'src/app/services/quizService';
+import { StepService } from 'src/app/services/stepService';
 
 export type NewStep = typeof steps.$inferInsert;
 

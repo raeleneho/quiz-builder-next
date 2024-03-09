@@ -7,6 +7,8 @@ import { MultiSelectBlockDefinition } from './MultiSelectBlockDefinition';
 import { RadioBlockDefinition } from './RadioBlock/RadioBlockDefinition';
 import { TextareaBlockDefinition } from './TextareaBlockDefinition';
 import { TypographyBlockDefinition } from './TypographyBlock/TypographyBlockDefinition';
+import { CheckboxBlockDefinition } from './CheckboxBlockDefinition';
+import { ImageBlockDefinition } from './ImageBlock/ImageBlockDefinition';
 
 export interface BlockDefinition {
   inserterOptions: {
@@ -32,4 +34,6 @@ export const blockLibrary: Record<BlockType, BlockDefinition> = {
   [BlockType.RADIO]: RadioBlockDefinition,
   [BlockType.DROPDOWN]: DropdownBlockDefinition,
   [BlockType.MULTISELECT]: MultiSelectBlockDefinition,
+  [BlockType.CHECKBOX]: CheckboxBlockDefinition,
+  [BlockType.IMAGE]: ImageBlockDefinition,
 };

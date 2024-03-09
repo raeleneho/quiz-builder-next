@@ -1,12 +1,13 @@
 // dynamic props - block id, block type, block data
 // make getblock request
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, useToast } from '@chakra-ui/react';
 
 import { BlockClient } from '../../../api/BlockClient';
 
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 
 import { blockLibrary } from './BlockLibrary';
+import { useEffect, useState } from 'react';
 
 interface BlockSettingsProps {
   stepId: string;
@@ -15,6 +16,31 @@ interface BlockSettingsProps {
 export function BlockSettings({ stepId }: BlockSettingsProps) {
   const stepEditorContext = useStepEditorContext();
   const { selectedBlock, setSelectedBlock } = stepEditorContext || {};
+  const toast = useToast();
+
+  const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+  const handleSaveClick = () => {
+    selectedBlock &&
+      BlockClient.updateBlock({
+        stepId,
+        ...selectedBlock,
+      });
+    setIsSaveClicked(true);
+  };
+
+  useEffect(() => {
+    if (isSaveClicked) {
+      toast({
+        title: 'Block saved',
+        position: 'top',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      setIsSaveClicked(false);
+    }
+  }, [isSaveClicked, toast]);
 
   const BlockSettingsRenderer = () => {
     if (!selectedBlock) return <>Select a block</>;
@@ -27,19 +53,7 @@ export function BlockSettings({ stepId }: BlockSettingsProps) {
     <>
       <Box maxW="350px" display="flex" flexDirection="column" gap={3}>
         {BlockSettingsRenderer()}
-        <Button
-          aria-label="update block"
-          colorScheme="teal"
-          fontSize="16px"
-          size="sm"
-          onClick={() =>
-            selectedBlock &&
-            BlockClient.updateBlock({
-              stepId,
-              ...selectedBlock,
-            })
-          }
-        >
+        <Button aria-label="update block" colorScheme="teal" fontSize="16px" size="sm" onClick={handleSaveClick}>
           Save
         </Button>
         <Button

@@ -7,6 +7,7 @@ interface BlockInserterProps {
   quizId: string;
   stepId: string;
   showIcon?: boolean;
+  
 }
 
 export const BlockInserter = ({ stepId, quizId, showIcon }: BlockInserterProps) => {

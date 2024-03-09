@@ -2,10 +2,10 @@
 
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider, defineStyleConfig, extendTheme } from '@chakra-ui/react';
-import { queryClient } from '@components/lib/QueryClient';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClient } from 'src/lib/QueryClient';
 
 const Input = defineStyleConfig({
   variants: {

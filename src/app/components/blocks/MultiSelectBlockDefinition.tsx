@@ -1,15 +1,16 @@
 import { Icon } from '@chakra-ui/react';
-import { IoCheckboxOutline } from 'react-icons/io5';
+
 import { BlockDefinition } from './BlockLibrary';
 import MultiSelectBlock from './MultiSelectBlock';
 import SelectBlockSettings from './SelectBlockSettings';
 
+import { GoMultiSelect } from 'react-icons/go';
 export const MultiSelectBlockDefinition: BlockDefinition = {
   inserterOptions: {
-    label: 'Checkbox',
+    label: 'Multi-choice',
   },
 
-  iconType: <Icon as={IoCheckboxOutline} />,
+  iconType: <Icon as={GoMultiSelect} />,
 
   block: MultiSelectBlock,
   blockSettings: () => {
@@ -17,7 +18,7 @@ export const MultiSelectBlockDefinition: BlockDefinition = {
   },
 
   factory: () => ({
-    fieldRef: 'Checkbox',
+    fieldRef: 'multi select',
     label: 'label text',
     options: [
       { label: 'test one', value: 'value one' },

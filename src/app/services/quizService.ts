@@ -1,8 +1,8 @@
-import { CreateQuizRequest, Quiz } from '@components/api/QuizClient';
 import { db } from 'db';
 import { quizzes, steps } from 'db/schema';
 import { eq } from 'drizzle-orm';
 import { NewQuiz } from '../api/v1/quizzes/[quizId]/route';
+import { Quiz } from '@api/QuizClient';
 
 export class QuizService {
   static async createQuiz(data: string) {

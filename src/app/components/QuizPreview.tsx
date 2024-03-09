@@ -1,10 +1,11 @@
 'use client';
 import { Box, Button, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
-import QuizClient, { quizRoute } from '@components/api/QuizClient';
+
 import { useQuery } from '@tanstack/react-query';
 import StepPreview from './StepPreview/StepPreview';
 import { useState } from 'react';
 import { ServerResponseProvider } from './ResponseContext';
+import QuizClient, { quizRoute } from '@api/QuizClient';
 
 interface QuizPreviewProps {
   quizId: string;

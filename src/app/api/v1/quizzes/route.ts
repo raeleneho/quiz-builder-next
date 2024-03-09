@@ -1,7 +1,7 @@
+import { Quiz } from '@api/QuizClient';
+import { objectToArray } from '@utils/objectToArray';
 import { NextResponse } from 'next/server';
-import { QuizService } from '@components/app/services/quizService';
-import { objectToArray } from '@components/app/utils/objectToArray';
-import { Quiz } from '@components/api/QuizClient';
+import { QuizService } from 'src/app/services/quizService';
 
 type QuizWithoutSteps = Omit<Quiz, 'steps'>;
 export async function GET(request: Request) {

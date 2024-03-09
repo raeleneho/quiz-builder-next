@@ -10,6 +10,8 @@ export enum BlockType {
   RADIO = 'radio',
   DROPDOWN = 'dropdown',
   MULTISELECT = 'multiselect',
+  CHECKBOX = 'checkbox',
+  IMAGE = 'image',
 }
 
 export interface Block {

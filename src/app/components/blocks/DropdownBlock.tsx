@@ -20,7 +20,7 @@ export const DropdownBlock = ({ label, fieldRef, placeholder, options }: Dropdow
       {label && <label className="form-label">{label}</label>}
 
       <Select
-        size="sm"
+        size="md"
         color="white"
         placeholder={placeholder}
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {

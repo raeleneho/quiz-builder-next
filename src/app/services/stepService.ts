@@ -2,7 +2,7 @@ import { db } from 'db';
 import { steps, blocks } from 'db/schema';
 import { NewStep } from '../api/v1/quizzes/[quizId]/steps/route';
 import { eq } from 'drizzle-orm';
-import { Step } from '@components/api/StepClient';
+import { Step } from '@api/StepClient';
 
 export class StepService {
   static async createStep(stepData: NewStep) {
