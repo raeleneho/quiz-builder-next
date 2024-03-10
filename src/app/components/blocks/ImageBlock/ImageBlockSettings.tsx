@@ -39,6 +39,7 @@ function ImageBlockSettings() {
       <img src={selectedBlock?.data?.src} alt={selectedBlock?.data?.name} />
 
       {selectedBlock &&
+        selectedBlock?.data?.src.length > 0 &&
         Object.entries(selectedBlock.data).map(([key, value]) => (
           <Flex justify="space-between" gap="1" key={key}>
             <FormLabel fontSize="sm" mb={0}>
