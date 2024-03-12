@@ -1,8 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import StepClient, { Step, stepRoute } from '../../../api/StepClient';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 import StepPreview from '../../components/StepPreview/StepPreview';

@@ -13,7 +13,7 @@ export const InputBlock = ({ label, fieldRef, ...defaultAttrs }: InputBlockProps
   const responseContext = useResponseContext();
 
   return (
-    <Flex alignItems="center" gap="2" p={2}>
+    <Flex alignItems="center" justifyContent="space-between" gap="2">
       {label && <label className="form-label">{label}</label>}
 
       <FormInput

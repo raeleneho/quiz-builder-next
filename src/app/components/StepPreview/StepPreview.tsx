@@ -1,9 +1,9 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
 
 import './StepPreview.css';
 import { blockLibrary } from '../blocks/BlockLibrary';
 
-import { Box, Container, VStack, Text } from '@chakra-ui/react';
+import { Box, Container, VStack, Text, Center } from '@chakra-ui/react';
 
 import NewBlockPopoverModal from '../NewBlockPopoverModal';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
@@ -54,6 +54,7 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
       }
     },
     enabled: !!stepId,
+    // placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
@@ -96,7 +97,7 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
                 }}
               >
                 <Container centerContent>
-                  <Box>
+                  <Box w="90%">
                     <BlockRenderer block={isSelected ? stepEditorContext?.selectedBlock : block} />
                   </Box>
                 </Container>
@@ -112,9 +113,9 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
           )}
           {blocksRes?.map(({ data: block }) => {
             return (
-              <Box key={block?.id} w="100%" p={1}>
+              <Box key={block?.id} p={1}>
                 <Container centerContent>
-                  <Box w="60%">
+                  <Box w="90%">
                     <BlockRenderer block={block} />
                   </Box>
                 </Container>

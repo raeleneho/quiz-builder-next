@@ -154,6 +154,7 @@ function StepSideBarItem({ stepId, quizId }: { stepId: string; quizId: string })
         stepId,
       });
     },
+    initialData: keepPreviousData,
   });
 
   const deleteStep = async (quizId: string, stepId: string) => {
