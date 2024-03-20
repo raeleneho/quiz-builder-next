@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
 
 import { useQuery } from '@tanstack/react-query';
 import StepPreview from './StepPreview/StepPreview';

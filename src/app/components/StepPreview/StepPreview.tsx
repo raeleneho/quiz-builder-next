@@ -113,7 +113,7 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
           )}
           {blocksRes?.map(({ data: block }) => {
             return (
-              <Box key={block?.id} p={1}>
+              <Box key={block?.id} p={1} w="100%">
                 <Container centerContent>
                   <Box w="90%">
                     <BlockRenderer block={block} />
