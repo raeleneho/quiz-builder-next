@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
-import { db } from 'db';
-import { quizzes, steps, blocks } from 'db/schema';
-import { eq } from 'drizzle-orm';
-import { QuizService } from '@components/app/services/quizService';
-import { StepService } from '@components/app/services/stepService';
-import { BlockService } from '@components/app/services/blockService';
+import { blocks } from 'db/schema';
+import { BlockService } from 'src/app/services/blockService';
+import { StepService } from 'src/app/services/stepService';
 
 export type NewBlock = typeof blocks.$inferInsert;
 

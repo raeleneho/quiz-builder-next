@@ -6,6 +6,12 @@ import StepClient, { stepRoute } from './StepClient';
 export enum BlockType {
   TEXTAREA = 'textarea',
   INPUT = 'input',
+  TYPOGRAPHY = 'typography',
+  RADIO = 'radio',
+  DROPDOWN = 'dropdown',
+  MULTISELECT = 'multiselect',
+  CHECKBOX = 'checkbox',
+  IMAGE = 'image',
 }
 
 export interface Block {
@@ -22,7 +28,7 @@ export interface CreateBlockRequest {
   stepId: string;
   type: BlockType;
   position?: number;
-  data: Record<string, string>;
+  data: Record<string, any>;
 }
 
 export const createBlock = async (request: CreateBlockRequest) => {

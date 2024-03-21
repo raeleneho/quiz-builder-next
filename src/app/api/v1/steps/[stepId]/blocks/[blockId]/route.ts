@@ -1,6 +1,6 @@
-import { BlockService } from '@components/app/services/blockService';
 import { NextRequest, NextResponse } from 'next/server';
 import { NewBlock } from '../route';
+import { BlockService } from 'src/app/services/blockService';
 
 export async function GET(request: NextRequest, { params }: { params: { blockId: string } }) {
   try {

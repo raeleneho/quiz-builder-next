@@ -1,21 +1,22 @@
 'use client';
 
-import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQueries, useQuery } from '@tanstack/react-query';
 
-import { Button, Flex, IconButton, Spacer, TabsProvider, VStack } from '@chakra-ui/react';
+import { Button, Flex, IconButton, Spacer, VStack } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
-import QuizClient, { Quiz, quizRoute } from '@components/api/QuizClient';
-import Link from 'next/link';
-import StepClient, { stepRoute } from '@components/api/StepClient';
 
+import Link from 'next/link';
 import Tabs from './Tabs/Tabs';
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
+import QuizClient, { quizRoute, Quiz } from '@api/QuizClient';
+import StepClient, { stepRoute } from '@api/StepClient';
 
 function SideBar() {
   const { quizId } = useParams();
   const [selectedQuizId, setSelectedQuizId] = useState((quizId as string) ?? '');
+
   const results = useQueries({
     queries: [
       {
@@ -40,17 +41,26 @@ function SideBar() {
 
   const [{ data: quizzes }, { data: selectedQuiz }] = results;
 
-  const generateQuiz = () => {
-    const newQuiz = { name: 'new quiz' };
+  const {
+    data: newQuiz,
+    mutate: generateQuiz,
+    isPending: creatingQuiz,
+    error,
+    isError,
+  } = useMutation({
+    mutationFn: () => {
+      const newQuiz = { name: 'new quiz' };
 
-    QuizClient.createQuiz(newQuiz);
-  };
+      return QuizClient.createQuiz(newQuiz);
+    },
+  });
 
   const generateStep = () => {
     if (!selectedQuizId) {
       return;
     }
     const newStep = { quizId: selectedQuizId, name: 'new step' };
+
     StepClient.createStep(newStep);
   };
   const tabsData = [
@@ -59,7 +69,7 @@ function SideBar() {
       title: 'Quizzes',
       component: () => (
         <VStack spacing={3} align="stretch">
-          <Button size="sm" variant="outline" borderColor={'teal.500'} onClick={() => generateQuiz()}>
+          <Button size="sm" variant="outline" borderColor={'teal.500'} onClick={() => generateQuiz()} disabled={creatingQuiz}>
             + Add a quiz
           </Button>
 
@@ -144,6 +154,7 @@ function StepSideBarItem({ stepId, quizId }: { stepId: string; quizId: string })
         stepId,
       });
     },
+    initialData: keepPreviousData,
   });
 
   const deleteStep = async (quizId: string, stepId: string) => {

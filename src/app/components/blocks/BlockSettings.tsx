@@ -1,62 +1,53 @@
 // dynamic props - block id, block type, block data
 // make getblock request
-import { Box, Button, Flex, FormLabel } from '@chakra-ui/react';
+import { Box, Button, useToast } from '@chakra-ui/react';
 
 import { BlockClient } from '../../../api/BlockClient';
 
-import { FormInput } from '../FormInput';
 import { useStepEditorContext } from '../StepEditor/StepEditorContext';
 
-interface BlockEditorProps {
+import { blockLibrary } from './BlockLibrary';
+import { useEffect, useState } from 'react';
+
+interface BlockSettingsProps {
   stepId: string;
 }
 
-export function BlockSettings({ stepId }: BlockEditorProps) {
+export function BlockSettings({ stepId }: BlockSettingsProps) {
   const stepEditorContext = useStepEditorContext();
-  const block = stepEditorContext?.selectedBlock;
-  if (!block) return <>Select a block</>;
+  const { selectedBlock, setSelectedBlock } = stepEditorContext || {};
+  const toast = useToast();
+
+  const BlockSettingsRenderer = () => {
+    if (!selectedBlock) return <>Select a block</>;
+
+    const BlockSettingsComponent = blockLibrary[selectedBlock?.type].blockSettings;
+    return <BlockSettingsComponent {...selectedBlock?.data} />;
+  };
+
   return (
     <>
-      <Box maxW="350px" display="flex" flexDirection="column" gap={2}>
-        {Object.keys(stepEditorContext?.selectedBlock?.data ?? {}).map((key) => {
-          return (
-            <Flex key={key} alignItems="center" justify="space-between" gap="2">
-              <FormLabel fontSize="sm" mb={0}>
-                {key}:
-              </FormLabel>
-              <FormInput
-                width="auto"
-                size="sm"
-                variant="outline"
-                boxShadow="sm"
-                rounded="md"
-                value={stepEditorContext?.selectedBlock?.data[key]}
-                onChange={(e) => {
-                  stepEditorContext?.selectedBlock &&
-                    stepEditorContext?.setSelectedBlock({
-                      ...stepEditorContext?.selectedBlock,
-                      data: {
-                        ...stepEditorContext?.selectedBlock?.data,
-                        [key]: e.target.value,
-                      },
-                    });
-                }}
-              />
-            </Flex>
-          );
-        })}
-
+      <Box maxW="350px" display="flex" flexDirection="column" gap={3}>
+        {BlockSettingsRenderer()}
         <Button
           aria-label="update block"
           colorScheme="teal"
           fontSize="16px"
           size="sm"
-          onClick={() =>
-            BlockClient.updateBlock({
-              stepId,
-              ...block,
-            })
-          }
+          onClick={() => {
+            selectedBlock &&
+              BlockClient.updateBlock({
+                stepId,
+                ...selectedBlock,
+              });
+
+            toast({
+              title: 'Block saved',
+              position: 'top',
+              status: 'success',
+              duration: 3000,
+            });
+          }}
         >
           Save
         </Button>
@@ -66,7 +57,12 @@ export function BlockSettings({ stepId }: BlockEditorProps) {
           variant="outline"
           fontSize="16px"
           size="sm"
-          onClick={() => BlockClient.deleteBlock({ stepId, blockId: block?.id })}
+          onClick={() => {
+            if (selectedBlock && setSelectedBlock) {
+              BlockClient.deleteBlock({ stepId, blockId: selectedBlock.id });
+              setSelectedBlock(null);
+            }
+          }}
         >
           Delete block
         </Button>

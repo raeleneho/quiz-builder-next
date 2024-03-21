@@ -1,44 +1,39 @@
+import { ReactNode } from 'react';
 import { BlockType } from '../../../api/BlockClient';
-import { InputBlock } from './InputBlock';
-import { TextareaBlock } from './TextareaBlock';
+
+import { InputBlockDefinition } from './InputBlockDefinition';
+import { DropdownBlockDefinition } from './DropdownBlockDefinition';
+import { MultiSelectBlockDefinition } from './MultiSelectBlockDefinition';
+import { RadioBlockDefinition } from './RadioBlock/RadioBlockDefinition';
+import { TextareaBlockDefinition } from './TextareaBlockDefinition';
+import { TypographyBlockDefinition } from './TypographyBlock/TypographyBlockDefinition';
+import { CheckboxBlockDefinition } from './CheckboxBlockDefinition';
+import { ImageBlockDefinition } from './ImageBlock/ImageBlockDefinition';
 
 export interface BlockDefinition {
   inserterOptions: {
     label: string;
   };
 
-  block: React.FC<any>;
+  iconType: ReactNode | ReactNode[];
 
-  factory: () => Record<string, string>;
+  block: React.FC<any>;
+  blockSettings: React.FC<any>;
+
+  factory: () => Record<string, string | { label: string; value: string }[]>;
 }
 
-const InputBlockDefinition: BlockDefinition = {
-  inserterOptions: {
-    label: 'Input',
-  },
-
-  block: InputBlock,
-
-  factory: () => ({
-    fieldName: 'helo',
-    label: 'label text',
-    placeholder: 'placeholder text',
-  }),
-};
-
-const TextareaBlockDefinition: BlockDefinition = {
-  inserterOptions: {
-    label: 'Textarea',
-  },
-
-  block: TextareaBlock,
-
-  factory: () => ({
-    placeholder: 'placeholder text',
-  }),
-};
-
+export interface OptionDefinition {
+  label: string;
+  value: string;
+}
 export const blockLibrary: Record<BlockType, BlockDefinition> = {
   [BlockType.TEXTAREA]: TextareaBlockDefinition,
   [BlockType.INPUT]: InputBlockDefinition,
+  [BlockType.TYPOGRAPHY]: TypographyBlockDefinition,
+  [BlockType.RADIO]: RadioBlockDefinition,
+  [BlockType.DROPDOWN]: DropdownBlockDefinition,
+  [BlockType.MULTISELECT]: MultiSelectBlockDefinition,
+  [BlockType.CHECKBOX]: CheckboxBlockDefinition,
+  [BlockType.IMAGE]: ImageBlockDefinition,
 };

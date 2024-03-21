@@ -6,11 +6,9 @@ import { Block, blockRoute, BlockClient } from '../../../api/BlockClient';
 
 interface StepEditorContextData {
   selectedBlock?: Block | null;
-  setSelectedBlock: (block: Block) => void;
+  setSelectedBlock: (block: Block | null) => void;
   selectedBlockId: string;
   setSelectedBlockId: (blockId: string) => void;
-  formData?: Record<string, any> | null;
-  setFormData: (formData: Record<string, any>) => void;
 }
 const StepEditorContext = createContext<StepEditorContextData | null>(null);
 
@@ -22,7 +20,7 @@ export const useStepEditorContext = () => {
 export const StepEditorProvider = ({ children, stepId }: { children: JSX.Element | JSX.Element[]; stepId: string }) => {
   const [selectedBlock, setSelectedBlock] = useState<Block | null>();
   const [selectedBlockId, setSelectedBlockId] = useState('');
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
 
   const { data: blockRes } = useQuery({
     queryKey: [blockRoute, selectedBlockId],
@@ -49,8 +47,6 @@ export const StepEditorProvider = ({ children, stepId }: { children: JSX.Element
         setSelectedBlock,
         selectedBlockId,
         setSelectedBlockId,
-        formData,
-        setFormData,
       }}
     >
       {children}

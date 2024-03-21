@@ -1,10 +1,5 @@
-import { Quiz } from '@components/api/QuizClient';
-import { StepService } from '@components/app/services/stepService';
-
 import { NextResponse } from 'next/server';
-
-import { objectToArray } from '@components/app/utils/objectToArray';
-
+import { StepService } from 'src/app/services/stepService';
 export async function GET(request: Request, { params }: { params: { stepId: string } }) {
   try {
     const result = await StepService.getStep(params.stepId);
@@ -36,9 +31,8 @@ export async function DELETE(request: Request, { params }: { params: { stepId: s
 
 export async function PUT(request: Request, { params }: { params: { stepId: string } }) {
   try {
-    console.log('hi');
     const stepData = await request.json();
-    console.log(stepData);
+
     const result = StepService.updateStep(stepData, params.stepId);
 
     return new NextResponse(JSON.stringify(result), {

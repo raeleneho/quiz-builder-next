@@ -5,8 +5,6 @@
 }
 .content-block-hightlight {
   border: 3px solid #4fb9af;
-
-  color: white;
   transition: transform 0.3s ease-in-out;
 }
 

@@ -1,7 +1,6 @@
 import { quizzes } from 'db/schema';
 import { NextResponse } from 'next/server';
-
-import { QuizService } from '@components/app/services/quizService';
+import { QuizService } from 'src/app/services/quizService';
 
 export async function GET(request: Request, { params }: { params: { quizId: string } }) {
   const quizId = params.quizId;
