@@ -20,6 +20,7 @@ export const useStepEditorContext = () => {
 export const StepEditorProvider = ({ children, stepId }: { children: JSX.Element | JSX.Element[]; stepId: string }) => {
   const [selectedBlock, setSelectedBlock] = useState<Block | null>();
   const [selectedBlockId, setSelectedBlockId] = useState('');
+  // const [formData, setFormData] = useState({});
 
   const { data: blockRes } = useQuery({
     queryKey: [blockRoute, selectedBlockId],

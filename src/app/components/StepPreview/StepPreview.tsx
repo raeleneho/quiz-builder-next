@@ -16,12 +16,16 @@ interface BlockRendererProps {
   block?: Block | null;
 }
 
-export const BlockRenderer = ({ block }: BlockRendererProps): JSX.Element => {
+export const BlockRenderer = ({ block, isSelected }: BlockRendererProps): JSX.Element => {
   if (!block) {
     return <></>;
   }
   const BlockComponent = blockLibrary[block?.type]?.block;
+  const BlockComponent = blockLibrary[block?.type]?.block;
 
+  if (!BlockComponent) {
+    return <></>;
+  }
   if (!BlockComponent) {
     return <></>;
   }
@@ -65,10 +69,11 @@ function StepPreview({ stepId, quizId, editable }: StepPreviewProps) {
 
   const blocksRes = useQueries({
     queries:
-      step?.blocks?.map((blockId: string) => {
+      step.blocks?.map((blockId: string) => {
         return {
           queryKey: [blockRoute, blockId],
           queryFn: async () => {
+            return await BlockClient.getBlock({ blockId, stepId: step.id });
             return await BlockClient.getBlock({ blockId, stepId: step.id });
           },
         };
